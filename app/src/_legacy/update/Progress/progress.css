@@ -1,0 +1,25 @@
+.update-progress {
+    display: flex;
+    align-items: center;
+
+    .update-progress-pr {
+        width: 300px;
+        height: 6px;
+        border: 1px solid #000;
+        border-radius: 3px;
+    }
+
+    .update-progress-rate {
+        height: 6px;
+        border-radius: 3px;
+        background-image: linear-gradient(
+            to right,
+            rgb(130, 86, 208) 0%,
+            var(--primary-color) 100%
+        );
+    }
+
+    .update-progress-num {
+        margin: 0 10px;
+    }
+}

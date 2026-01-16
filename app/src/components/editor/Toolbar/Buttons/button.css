@@ -1,0 +1,10 @@
+.toolbar-button {
+    @apply flex justify-center items-center;
+    @apply size-10 border-0 rounded-lg bg-transparent;
+}
+.toolbar-button:hover {
+    background-color: var(--react-icon-bg-color-hover);
+}
+.toolbar-button svg {
+    color: var(--react-icon-color);
+}

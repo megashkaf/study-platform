@@ -1,0 +1,6 @@
+.toolbar-container {
+    @apply px-4;
+}
+.toolbar-container > * {
+    @apply grid gap-1;
+}

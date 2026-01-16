@@ -1,0 +1,17 @@
+@baseUrl = http://localhost:3001
+
+@firstName = Евгений
+@lastName = Пачкалов
+@email = pachkye@gmail.com
+@password = myStrongPass123
+
+
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+  "firstName": "{{firstName}}",
+  "lastName": "{{lastName}}",
+  "email": "{{email}}",
+  "password": "{{password}}"
+}

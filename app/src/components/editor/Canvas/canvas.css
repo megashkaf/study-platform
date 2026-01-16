@@ -1,0 +1,10 @@
+.stage-wrapper {
+    display: grid;
+    overflow: scroll;
+    place-items: center;
+    @apply w-full h-full;
+}
+
+.stage-wrapper .stage {
+    @apply m-20 bg-white;
+}

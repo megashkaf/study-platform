@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        line-height: 1.5;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+        font-synthesis: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scrollbar-color: var(--scroll-color);
+    }
+    body {
+        display: flex;
+        margin: 0;
+    }
+
+    * {
+        box-sizing: border-box;
+        padding: 0;
+    }
+    button {
+        cursor: pointer;
+        border: 0;
+    }
+
+    /* Разделители между окнами */
+    .divide-group-x {
+        @apply divide-x divide-solid;
+    }
+    .divide-group-x > * {
+        @apply border-y-0;
+    }
+    .divide-group-y {
+        @apply divide-y divide-solid;
+    }
+    .divide-group-y > * {
+        @apply border-x-0;
+    }
+    .divide-group-x,
+    .divide-group-y,
+    .divide-group-x > *,
+    .divide-group-y > * {
+        border-color: var(--border-color);
+    }
+
+    /* Цвета */
+    :root.dark {
+        --text-color: theme("colors.stone.300");
+        --bg-color: theme("colors.stone.900");
+        --bg-secondary-color: theme("colors.stone.800");
+        --border-color: theme("colors.stone.600");
+        --scroll-color: theme("colors.stone.600") transparent;
+
+        --slide-list-border-color: theme("colors.stone.400");
+        --slide-list-border-hover-color: theme("colors.stone.500");
+        --slide-list-text-color: theme("colors.stone.500");
+        --slide-list-text-hover-color: theme("colors.stone.600");
+
+        --layer-list-text-color: theme("colors.stone.300");
+        --layer-list-active-text-color: theme("colors.stone.300");
+        --layer-list-marker-color: theme("colors.stone.700");
+
+        --react-icon-color: theme("colors.stone.400");
+        --react-icon-bg-color-hover: rgb(from theme("colors.stone.50") r g b / 0.1);
+    }
+    :root {
+        --text-color: theme("colors.stone.800");
+        --bg-color: theme("colors.stone.300");
+        --bg-secondary-color: theme("colors.stone.200");
+        --border-color: theme("colors.stone.400");
+        --scroll-color: theme("colors.stone.400") transparent;
+
+        --slide-list-border-color: theme("colors.stone.500");
+        --slide-list-border-hover-color: theme("colors.stone.400");
+        --slide-list-text-color: theme("colors.stone.500");
+        --slide-list-text-hover-color: theme("colors.stone.400");
+
+        --layer-list-text-color: theme("colors.stone.800");
+        --layer-list-active-text-color: theme("colors.stone.300");
+        --layer-list-marker-color: theme("colors.stone.500");
+
+        --react-icon-color: theme("colors.stone.700");
+        --react-icon-bg-color-hover: rgb(from theme("colors.stone.50") r g b / 0.7);
+    }
+}

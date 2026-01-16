@@ -1,0 +1,36 @@
+.slide-list-container {
+    @apply flex-col;
+}
+
+.slide-list-container .slide-list-scroll {
+    @apply w-full h-full overflow-y-scroll overflow-x-hidden p-4;
+}
+
+.slide-list-container .slide-list {
+    @apply flex-1;
+    @apply flex flex-col gap-4;
+}
+
+.slide-list .slide-list-item,
+.slide-list-container .add-slide-button {
+    height: 80px;
+    @apply w-full flex-shrink-0 flex justify-start items-start;
+    @apply p-2 bg-white;
+    @apply border-4 border-solid rounded-lg;
+    color: var(--slide-list-text-color);
+    border-color: var(--slide-border-color);
+}
+.slide-list .slide-list-item:hover,
+.slide-list-container .add-slide-button:hover {
+    color: var(--slide-list-text-hover-color);
+    border-color: var(--slide-border-hover-color);
+}
+.slide-list .slide-list-item.active {
+    @apply border-amber-500;
+}
+
+.slide-list-container .add-slide-button {
+    @apply mt-4 justify-center items-center;
+    @apply border-dashed hover:bg-white;
+    @apply text-xl font-bold;
+}

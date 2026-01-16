@@ -1,0 +1,33 @@
+/* Разметка */
+.app-container {
+    @apply w-screen h-screen flex flex-col;
+}
+.toolbar-container,
+.editor-container > * {
+    @apply flex justify-center items-center overflow-hidden;
+}
+.editor-container {
+    @apply flex flex-row w-full h-full min-w-0 min-h-0;
+}
+
+/* Размеры контейнеров*/
+.toolbar-container {
+    @apply h-12;
+}
+.slide-list-container {
+    @apply w-48 shrink-0;
+}
+.canvas-container {
+    @apply flex-1;
+}
+.layer-list-container {
+    @apply w-64 shrink-0;
+}
+
+/* Цвета */
+.toolbar-container,
+.slide-list-container,
+.layer-list-container,
+.element-inspector-container {
+    background-color: var(--bg-secondary-color);
+}

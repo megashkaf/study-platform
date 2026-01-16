@@ -1,0 +1,10 @@
+.element-inspector-container {
+    @apply w-full h-full  flex justify-center items-center p-4;
+    height: 300px;
+}
+.element-inspector {
+    @apply w-full h-full flex  justify-center items-center border border-solid;
+    color: var(--layer-list-text-color);
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+}

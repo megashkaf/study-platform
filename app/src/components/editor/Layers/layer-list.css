@@ -1,0 +1,55 @@
+.layer-list-container {
+    @apply flex-col flex-1;
+}
+
+.layer-list-container .layer-list-scroll {
+    @apply w-full h-full overflow-y-scroll overflow-x-hidden;
+}
+.layer-list-container .layer-list {
+    @apply flex-1;
+    @apply flex flex-col p-4;
+}
+.layer-list-group {
+    @apply border border-solid;
+}
+
+.layer-list .layer-list-item {
+    height: 40px;
+    @apply w-full flex justify-between items-center;
+
+    color: var(--layer-list-text-color);
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+}
+.layer-list .layer-list-item.active {
+    @apply bg-amber-900;
+    color: var(--layer-list-active-text-color);
+}
+.layer-list .layer-list-item.active .marker {
+    @apply bg-amber-500;
+}
+.layer-list .layer-list-item .layer-type-icon {
+    @apply ml-2;
+}
+.layer-list .layer-list-item span {
+    @apply ml-2 w-full text-start;
+}
+.layer-list .layer-list-item .marker {
+    width: 12px;
+    height: 100%;
+    background-color: var(--layer-list-marker-color);
+}
+
+/* Toolbar */
+.layer-list-toolbar {
+    @apply w-full pt-2 flex justify-center items-center gap-4;
+}
+.layer-list-toolbar-item {
+    @apply p-2 bg-transparent rounded-lg;
+}
+.layer-list-toolbar-item svg {
+    color: var(--react-icon-color);
+}
+.layer-list-toolbar-item:hover {
+    background-color: var(--react-icon-bg-color-hover);
+}
