@@ -1,15 +1,18 @@
-import { Canvas, ElementInspector, LayerList, SlideList } from ".";
+import { Toolbar, Canvas, ElementInspector, SlideList, Tabber } from ".";
 
 const Editor = () => {
     return (
-        <div className="editor-container divide-group-x">
-            <SlideList />
-            <Canvas />
-            <div className="divide-group-y flex flex-col">
-                <ElementInspector />
-                <LayerList />
+        <>
+            <Toolbar />
+            <div className="editor-container divide-group-x">
+                <SlideList />
+                <Canvas />
+                <div className="sidebar-container divide-group-y flex flex-col">
+                    <Tabber />
+                    <ElementInspector />
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

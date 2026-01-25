@@ -1,5 +1,5 @@
 import { useWindowTitle, useSyncProjectStateDirty, useSaveLoad } from "@/hooks";
-import { Toolbar, Editor } from "@/components/editor";
+import { Editor } from "@/components/Editor";
 
 import "./layout.css";
 
@@ -10,7 +10,6 @@ const EditorPage = () => {
 
     return (
         <div className="app-container divide-group-y">
-            <Toolbar />
             <Editor />
         </div>
     );

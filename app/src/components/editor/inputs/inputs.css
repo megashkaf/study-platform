@@ -1,0 +1,15 @@
+.custom-input {
+    @apply p-1 border border-solid rounded-lg text-sm;
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+}
+.custom-input button {
+    all: unset;
+    @apply p-1 rounded-sm;
+    cursor: pointer;
+    background-color: var(--bg-primary-color);
+    color: var(--text-primary-color);
+}
+.custom-input span {
+    @apply ml-1;
+}

@@ -68,12 +68,17 @@
         --layer-list-marker-color: theme("colors.stone.700");
 
         --react-icon-color: theme("colors.stone.400");
-        --react-icon-bg-color-hover: rgb(from theme("colors.stone.50") r g b / 0.1);
+        --react-icon-bg-color-hover: rgb(
+            from theme("colors.stone.50") r g b / 0.1
+        );
     }
     :root {
         --text-color: theme("colors.stone.800");
+        --text-primary-color: theme("colors.amber.100");
+        --text-reversed-color: theme("colors.stone.300");
         --bg-color: theme("colors.stone.300");
         --bg-secondary-color: theme("colors.stone.200");
+        --bg-primary-color: theme("colors.amber.900");
         --border-color: theme("colors.stone.400");
         --scroll-color: theme("colors.stone.400") transparent;
 
@@ -87,6 +92,8 @@
         --layer-list-marker-color: theme("colors.stone.500");
 
         --react-icon-color: theme("colors.stone.700");
-        --react-icon-bg-color-hover: rgb(from theme("colors.stone.50") r g b / 0.7);
+        --react-icon-bg-color-hover: rgb(
+            from theme("colors.stone.50") r g b / 0.7
+        );
     }
 }

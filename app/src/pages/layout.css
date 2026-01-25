@@ -20,14 +20,13 @@
 .canvas-container {
     @apply flex-1;
 }
-.layer-list-container {
+.sidebar-container {
     @apply w-64 shrink-0;
 }
 
 /* Цвета */
 .toolbar-container,
 .slide-list-container,
-.layer-list-container,
-.element-inspector-container {
+.sidebar-container {
     background-color: var(--bg-secondary-color);
 }

@@ -1,4 +1,9 @@
-import { SelectButton, AddNodeButton, ZoomButtons, ThemeButton } from "./Buttons";
+import {
+    SelectButton,
+    AddNodeButton,
+    ZoomButtons,
+    ThemeButton,
+} from "./buttons";
 
 import "./toolbar.css";
 

@@ -37,7 +37,7 @@ export const addSlideReducer = (state: WritableDraft<EditorState>) => {
 
 export const removeSlideReducer = (
     state: WritableDraft<EditorState>,
-    action: PayloadAction<string>
+    action: PayloadAction<string>,
 ) => {
     const slideId = action.payload;
     const slide = state.presentation.slides.byId[slideId];
@@ -56,7 +56,7 @@ export const removeSlideReducer = (
     // Убираем слайд
     delete state.presentation.slides.byId[slideId];
     state.presentation.slides.allIds = state.presentation.slides.allIds.filter(
-        (id) => id !== slideId
+        (id) => id !== slideId,
     );
 
     // Сбрасываем активные элементы
@@ -80,7 +80,7 @@ export const removeSlideReducer = (
 
 export const reorderSlidesReducer = (
     state: WritableDraft<EditorState>,
-    action: PayloadAction<{ oldIndex: number; newIndex: number }>
+    action: PayloadAction<{ oldIndex: number; newIndex: number }>,
 ) => {
     const { oldIndex, newIndex } = action.payload;
     const allIds = state.presentation.slides.allIds;
@@ -93,7 +93,7 @@ export const reorderSlidesReducer = (
 
 export const selectSlideReducer = (
     state: WritableDraft<EditorState>,
-    action: PayloadAction<string>
+    action: PayloadAction<string>,
 ) => {
     const slideId = action.payload;
     const slide = state.presentation.slides.byId[slideId];

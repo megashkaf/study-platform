@@ -11,16 +11,16 @@ export interface ReorderLayersPayload {
     newIndex: number;
 }
 export const defaultLayerDatas: AddLayerPayload[] = [
-    { type: "background", name: "Фон" },
-    { type: "info", name: "Информация" },
-    { type: "hints", name: "Подсказки" },
     { type: "input", name: "Ввод" },
+    { type: "hints", name: "Подсказки" },
+    { type: "info", name: "Информация" },
+    { type: "background", name: "Фон" },
 ];
 
 export const addLayerData = (
     slideId: string,
     type: LayerType,
-    name: string = "Новый слой"
+    name: string = "Новый слой",
 ): LayerItem => ({
     id: nanoid(),
     slideId,
@@ -31,7 +31,7 @@ export const addLayerData = (
 
 export const addLayerReducer = (
     state: WritableDraft<EditorState>,
-    action: PayloadAction<AddLayerPayload>
+    action: PayloadAction<AddLayerPayload>,
 ) => {
     const activeSlideId = state.activeSlideId;
     if (!activeSlideId) return;
@@ -50,7 +50,7 @@ export const addLayerReducer = (
     } else {
         // Иначе добавляем слой перед первым слоем слайда
         const allIdsLayerIndex = state.presentation.layers.allIds.findIndex(
-            (id) => id === slide.layerIds[0]
+            (id) => id === slide.layerIds[0],
         );
         state.presentation.layers.allIds.splice(allIdsLayerIndex, 0, layer.id);
     }
@@ -68,7 +68,7 @@ export const addLayerReducer = (
 
 export const removeLayerReducer = (
     state: WritableDraft<EditorState>,
-    action: PayloadAction<string>
+    action: PayloadAction<string>,
 ) => {
     const layerId = action.payload;
     const layer = state.presentation.layers.byId[layerId];
@@ -88,12 +88,12 @@ export const removeLayerReducer = (
     // Убираем слой
     delete state.presentation.layers.byId[layerId];
     state.presentation.layers.allIds = state.presentation.layers.allIds.filter(
-        (id) => id !== layerId
+        (id) => id !== layerId,
     );
 
     // Убираем ссылку на слой из слайда
     layerParentSlide.layerIds = layerParentSlide.layerIds.filter(
-        (id) => id !== layerId
+        (id) => id !== layerId,
     );
 
     // Сбрасываем активные элементы
@@ -105,7 +105,7 @@ export const removeLayerReducer = (
 
 export const reorderLayersReducer = (
     state: WritableDraft<EditorState>,
-    action: PayloadAction<ReorderLayersPayload>
+    action: PayloadAction<ReorderLayersPayload>,
 ) => {
     // Получаем активный слайд
     const activeSlideId = state.activeSlideId;
@@ -133,7 +133,7 @@ export const reorderLayersReducer = (
 
 export const selectLayerReducer = (
     state: WritableDraft<EditorState>,
-    action: PayloadAction<string>
+    action: PayloadAction<string>,
 ) => {
     const layerId = action.payload;
 

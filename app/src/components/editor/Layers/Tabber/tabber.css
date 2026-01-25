@@ -1,0 +1,19 @@
+.layers-tabber {
+    @apply w-full h-full flex justify-center items-center flex-col;
+}
+.layers-tabber > .tabs {
+    @apply w-full p-2 flex justify-evenly items-center;
+}
+.layers-tabber > .content {
+    @apply w-full h-full p-2;
+}
+.layers-tabber > .tabs button {
+    @apply p-2 bg-transparent rounded-lg;
+}
+.layers-tabber > .tabs svg {
+    color: var(--react-icon-color);
+}
+.layers-tabber > .tabs button:hover,
+.layers-tabber > .tabs button#active {
+    background-color: var(--react-icon-bg-color-hover);
+}

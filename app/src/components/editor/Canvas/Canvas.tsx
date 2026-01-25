@@ -35,7 +35,9 @@ const Canvas = () => {
         }
     };
 
-    const menuOptions = [{ id: "delete", label: "Удалить", onClick: handleItemClick }];
+    const menuOptions = [
+        { id: "delete", label: "Удалить", onClick: handleItemClick },
+    ];
 
     const { handleShowMenu, menu, hideAll } = useContextMenu({
         menuId: "node-context-menu",
@@ -52,12 +54,16 @@ const Canvas = () => {
                     scaleY={scale}
                     className="stage"
                 >
-                    {layers.map((layer) => (
+                    {layers.toReversed().map((layer) => (
                         <Layer key={layer.id}>
                             {nodes
                                 .filter((node) => node.layerId === layer.id)
                                 .map((node) => (
-                                    <NodeRenderer key={node.id} node={node} handleShowMenu={handleShowMenu} />
+                                    <NodeRenderer
+                                        key={node.id}
+                                        node={node}
+                                        handleShowMenu={handleShowMenu}
+                                    />
                                 ))}
                         </Layer>
                     ))}

@@ -62,7 +62,7 @@ export const updatePresentationReducer = (
     action: PayloadAction<{
         filePath: string;
         presentation: Presentation;
-    }>
+    }>,
 ) => {
     const { filePath, presentation } = action.payload;
 
@@ -83,7 +83,7 @@ export const updatePresentationReducer = (
 };
 
 export const removePresentationReducer = (
-    state: WritableDraft<EditorState>
+    state: WritableDraft<EditorState>,
 ) => {
     const newState = addPresentationData();
     Object.assign(state, newState);
@@ -91,7 +91,7 @@ export const removePresentationReducer = (
 
 export const setTitleReducer = (
     state: WritableDraft<EditorState>,
-    action: PayloadAction<string>
+    action: PayloadAction<string>,
 ) => {
     state.presentation.title = action.payload;
     state.projectState.isDirty = true;
