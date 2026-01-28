@@ -1,7 +1,8 @@
 import { ipcRenderer, contextBridge } from "electron";
+import { ElectronAPI, FsAPI, MenuAPI, ProjectAPI, ScreenshotAPI } from "@/type/preload-api";
 import { IPC_CHANNELS } from "../ipcChannels";
-import { ElectronAPI, FsAPI, MenuAPI, ProjectAPI } from "@/type/preload-api";
 
+// --------- Context bridge ---------
 const electronAPI: ElectronAPI = {
     setWindowTitle: (title) => ipcRenderer.send(IPC_CHANNELS.ELECTRON.SET_WINDOW_TITLE, title),
     updateProjectStateDirty: (isDirty) => ipcRenderer.send(IPC_CHANNELS.ELECTRON.UPDATE_PROJECT_STATE_DIRTY, isDirty),
@@ -10,15 +11,11 @@ const electronAPI: ElectronAPI = {
 };
 contextBridge.exposeInMainWorld("electronAPI", electronAPI);
 
-// const screenshotAPI: Window["screenshotAPI"] = {
-//     getScreenshot: () => ipcRenderer.invoke("get-screenshot"),
-// };
-// contextBridge.exposeInMainWorld("screenshotAPI", screenshotAPI);
-
 const fsAPI: FsAPI = {
     loadImageBase64: (path) => ipcRenderer.invoke(IPC_CHANNELS.FS.LOAD_IMAGE_BASE64, path),
     addTempImage: () => ipcRenderer.invoke(IPC_CHANNELS.FS.ADD_TEMP_IMAGE),
 };
+contextBridge.exposeInMainWorld("fsAPI", fsAPI);
 
 const menuAPI: MenuAPI = {
     onNewProject: (callback) => {
@@ -42,17 +39,19 @@ const menuAPI: MenuAPI = {
         return () => ipcRenderer.off(IPC_CHANNELS.MENU.OPEN_PROJECT, listener);
     },
 };
+contextBridge.exposeInMainWorld("menuAPI", menuAPI);
 
 export const projectAPI: ProjectAPI = {
     save: (presentation, title, filePath) =>
         ipcRenderer.invoke(IPC_CHANNELS.PROJECT.SAVE, presentation, title, filePath),
-
     open: () => ipcRenderer.invoke(IPC_CHANNELS.PROJECT.OPEN),
 };
-
-contextBridge.exposeInMainWorld("fsAPI", fsAPI);
-contextBridge.exposeInMainWorld("menuAPI", menuAPI);
 contextBridge.exposeInMainWorld("projectAPI", projectAPI);
+
+export const screenshotAPI: ScreenshotAPI = {
+    captureWindow: () => ipcRenderer.invoke(IPC_CHANNELS.SCREENSHOT.CAPTURE_WINDOW),
+};
+contextBridge.exposeInMainWorld("screenshotAPI", screenshotAPI);
 
 // --------- Preload scripts loading ---------
 function domReady(condition: DocumentReadyState[] = ["complete", "interactive"]) {

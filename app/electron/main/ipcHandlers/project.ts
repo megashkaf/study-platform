@@ -1,6 +1,7 @@
-import { app, dialog, ipcMain } from "electron";
+import { ProjectAPI } from "@/type/preload-api";
 import { IPC_CHANNELS } from "../../ipcChannels";
-import { ProjectAPIOpenFn, ProjectAPISaveFn } from "@/type/preload-api";
+
+import { app, dialog, ipcMain } from "electron";
 import { AnyNodeItem, Presentation } from "@/features/editor/types";
 
 import path from "path";
@@ -30,7 +31,7 @@ export function registerProjectHandlers() {
     // --------- Save ---------
     ipcMain.handle(
         IPC_CHANNELS.PROJECT.SAVE,
-        async (_event, ...args: Parameters<ProjectAPISaveFn>): ReturnType<ProjectAPISaveFn> => {
+        async (_event, ...args: Parameters<ProjectAPI["save"]>): ReturnType<ProjectAPI["save"]> => {
             const [presentation, title, filePath] = args;
             const zip = new AdmZip();
 
@@ -51,13 +52,13 @@ export function registerProjectHandlers() {
 
             // Сохраняем
             zip.writeZip(filePath);
-        }
+        },
     );
 
     // --------- Open ---------
     ipcMain.handle(
         IPC_CHANNELS.PROJECT.OPEN,
-        async (_event, ..._args: Parameters<ProjectAPIOpenFn>): ReturnType<ProjectAPIOpenFn> => {
+        async (_event, ..._args: Parameters<ProjectAPI["open"]>): ReturnType<ProjectAPI["open"]> => {
             const { canceled, filePaths } = await dialog.showOpenDialog({
                 title: "Открыть проект",
                 filters: [{ name: "Project", extensions: ["zip"] }],
@@ -88,6 +89,6 @@ export function registerProjectHandlers() {
             }
 
             return { filePath, presentation };
-        }
+        },
     );
 }

@@ -31,7 +31,7 @@ export const NodeRenderer = ({ node, handleShowMenu }: NodeRendererProps) => {
 
                 const loadImage = async () => {
                     const dataUrl = await window.fsAPI.loadImageBase64(
-                        node.tempPath
+                        node.tempPath,
                     );
                     const img = new window.Image();
                     img.src = dataUrl;
@@ -84,6 +84,7 @@ export const NodeRenderer = ({ node, handleShowMenu }: NodeRendererProps) => {
                         x: shape.x(),
                         y: shape.y(),
                         rotation: shape.rotation(),
+                        locked: false,
                     },
                 };
 
@@ -109,24 +110,28 @@ export const NodeRenderer = ({ node, handleShowMenu }: NodeRendererProps) => {
                         width={node.transform.width}
                         height={node.transform.height}
                         rotation={node.transform.rotation}
-                        draggable={activeNodeId === node.id}
+                        draggable={
+                            activeNodeId === node.id && !node.transform.locked
+                        }
                         onTransformEnd={handleTransformEnd}
                         onDragEnd={handleDragEnd}
                         onClick={handleOnClick}
                         onContextMenu={handleShowMenu}
                     />
-                    <Transformer
-                        ref={transformerRef}
-                        rotateEnabled={true}
-                        enabledAnchors={[
-                            "top-left",
-                            "top-right",
-                            "bottom-left",
-                            "bottom-right",
-                        ]}
-                        anchorSize={10}
-                        borderDash={[6, 2]}
-                    />
+                    {!node.transform.locked && (
+                        <Transformer
+                            ref={transformerRef}
+                            rotateEnabled={true}
+                            enabledAnchors={[
+                                "top-left",
+                                "top-right",
+                                "bottom-left",
+                                "bottom-right",
+                            ]}
+                            anchorSize={10}
+                            borderDash={[6, 2]}
+                        />
+                    )}
                 </>
             );
         }

@@ -1,6 +1,7 @@
-import { app, dialog, ipcMain } from "electron";
+import { FsAPI } from "@/type/preload-api";
 import { IPC_CHANNELS } from "../../ipcChannels";
-import { FsAPIAddTempImageFn, FsAPILoadImageBase64Fn } from "@/type/preload-api";
+
+import { app, dialog, ipcMain } from "electron";
 
 import fs from "fs";
 import fsp from "fs/promises";
@@ -16,7 +17,7 @@ export function registerFsHandlers() {
 
     ipcMain.handle(
         IPC_CHANNELS.FS.LOAD_IMAGE_BASE64,
-        async (_event, ...args: Parameters<FsAPILoadImageBase64Fn>): ReturnType<FsAPILoadImageBase64Fn> => {
+        async (_event, ...args: Parameters<FsAPI["loadImageBase64"]>): ReturnType<FsAPI["loadImageBase64"]> => {
             const [filePath] = args;
 
             const buffer = fs.readFileSync(filePath);
@@ -27,12 +28,12 @@ export function registerFsHandlers() {
             const mime = ext === "jpg" || ext === "jpeg" ? "image/jpeg" : ext === "webp" ? "image/webp" : "image/png";
 
             return `data:${mime};base64,${base64}`;
-        }
+        },
     );
 
     ipcMain.handle(
         IPC_CHANNELS.FS.ADD_TEMP_IMAGE,
-        async (_event, ..._args: Parameters<FsAPIAddTempImageFn>): ReturnType<FsAPIAddTempImageFn> => {
+        async (_event, ..._args: Parameters<FsAPI["addTempImage"]>): ReturnType<FsAPI["addTempImage"]> => {
             const { canceled, filePaths } = await dialog.showOpenDialog({
                 title: "Выберите изображение",
                 filters: [
@@ -64,6 +65,6 @@ export function registerFsHandlers() {
             const { width, height } = sizeOf(buffer);
 
             return { id, tempPath, relPath, name, width, height };
-        }
+        },
     );
 }

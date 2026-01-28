@@ -20,7 +20,8 @@
         "test": "vitest run"
     },
     "dependencies": {
-        "electron-updater": "^6.3.9"
+        "electron-updater": "^6.3.9",
+        "node-screenshots": "^0.2.1"
     },
     "devDependencies": {
         "@dnd-kit/core": "^6.3.1",

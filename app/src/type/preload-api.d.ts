@@ -1,51 +1,46 @@
+// ВХОДНАЯ ТОЧКА (контракт)
+// Здесь объявляются методы, которые нужно реализовать в electron/main/ipcHandlers
+// Памятка:
+// electron/ipcChannels - константы каналов
+// electron/preload/index - регистрация методов, которые может использовать renderer
+// electron/main/ipcHandlers/index - регистрация обработчиков событий, которые вызвывает renderer
+
 // --------- Electron API ---------
 export interface ElectronAPI {
-    setWindowTitle: ElectronAPISetWindowTitleFn;
-    updateProjectStateDirty: ElectronAPPIUpdateProjectStateDirtyFn;
-    getWindows: ElectronAPIGetWindowsFn;
-    showSaveAsDialog: ElectronAPIShowSaveAsDialogFn;
+    setWindowTitle(title: string): void;
+    updateProjectStateDirty(isDirty: boolean): void;
+    getWindows(): Promise<WindowInfo[]>;
+    showSaveAsDialog(): Promise<SaveDialogResult | undefined>;
 }
-export type ElectronAPISetWindowTitleFn = (title: string) => void;
-export type ElectronAPPIUpdateProjectStateDirtyFn = (isDirty: boolean) => void;
-export type ElectronAPIGetWindowsFn = () => Promise<{ id: string; name: string }[]>;
-export type ElectronAPIShowSaveAsDialogFn = () => Promise<{ filePath?: string; fileName?: string } | undefined>;
-
-// --------- Screenshot API ---------
-// export interface ScreenshotAPI {
-//     getScreenshot: () => Promise<string>;
-// }
 
 // --------- Fs API ---------
 export interface FsAPI {
-    loadImageBase64: FsAPILoadImageBase64Fn;
-    addTempImage: FsAPIAddTempImageFn;
+    loadImageBase64(path: string): Promise<string>;
+    addTempImage(): Promise<{
+        id: string;
+        tempPath: string;
+        relPath: string;
+        name: string;
+        width: number;
+        height: number;
+    }>;
 }
-export type FsAPILoadImageBase64Fn = (path: string) => Promise<string>;
-export type FsAPIAddTempImageFn = () => Promise<{
-    id: string;
-    tempPath: string;
-    relPath: string;
-    name: string;
-    width: number;
-    height: number;
-}>;
 
 // --------- Menu API ---------
 export interface MenuAPI {
-    onNewProject: MenuAPIOnNewProjectFn;
-    onSaveProject: MenuAPIOnSaveProjectFn;
-    onSaveProjectAs: MenuAPIOnSaveProjectAsFn;
-    onOpenProject: MenuAPIOnOpenProjectFn;
+    onNewProject(callback: () => void): () => void;
+    onSaveProject(callback: () => void): () => void;
+    onSaveProjectAs(callback: () => void): () => void;
+    onOpenProject(callback: () => void): () => void;
 }
-export type MenuAPIOnNewProjectFn = (callback: () => void) => () => void;
-export type MenuAPIOnSaveProjectFn = (callback: () => void) => () => void;
-export type MenuAPIOnSaveProjectAsFn = (callback: () => void) => () => void;
-export type MenuAPIOnOpenProjectFn = (callback: () => void) => () => void;
 
 // --------- Project API ---------
 export interface ProjectAPI {
-    save: ProjectAPISaveFn;
-    open: ProjectAPIOpenFn;
+    save(presentation: Presentation, title: string | null, filePath: string): Promise<void>;
+    open(): Promise<{ filePath: string; presentation: Presentation }>;
 }
-export type ProjectAPISaveFn = (presentation: Presentation, title: string | null, filePath: string) => Promise<void>;
-export type ProjectAPIOpenFn = () => Promise<{ filePath: string; presentation: Presentation }>;
+
+// --------- Screenshot API ---------
+export interface ScreenshotAPI {
+    captureWindow(): void;
+}

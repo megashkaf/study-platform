@@ -4,7 +4,7 @@ import { ImageNodeItem } from "@/features/editor/types";
 
 export const addTempImageNode = async (
     dispatch: AppDispatch,
-    isDialogOpen: boolean
+    isDialogOpen: boolean,
 ) => {
     if (isDialogOpen) return;
     dispatch(editorActions.updateProjectState({ isDialogOpen: true }));
@@ -26,6 +26,7 @@ export const addTempImageNode = async (
                 x: 0,
                 y: 0,
                 rotation: 0,
+                locked: false,
             },
         };
 

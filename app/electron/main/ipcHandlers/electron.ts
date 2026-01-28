@@ -1,28 +1,23 @@
-import { BrowserWindow, desktopCapturer, dialog, ipcMain, Menu } from "electron";
+import { ElectronAPI } from "@/type/preload-api";
 import { IPC_CHANNELS } from "../../ipcChannels";
-import {
-    ElectronAPIGetWindowsFn,
-    ElectronAPISetWindowTitleFn,
-    ElectronAPIShowSaveAsDialogFn,
-    ElectronAPPIUpdateProjectStateDirtyFn,
-} from "@/type/preload-api";
+
+import { BrowserWindow, desktopCapturer, dialog, ipcMain, Menu } from "electron";
 
 import path from "path";
 
 export function registerElectronHandlers() {
-    // Rename window title
     ipcMain.on(
         IPC_CHANNELS.ELECTRON.SET_WINDOW_TITLE,
-        async (event, ...args: Parameters<ElectronAPISetWindowTitleFn>) => {
+        async (event, ...args: Parameters<ElectronAPI["setWindowTitle"]>) => {
             const [title] = args;
             const win = BrowserWindow.fromWebContents(event.sender);
             if (win) win.setTitle(title);
-        }
+        },
     );
 
     ipcMain.on(
         IPC_CHANNELS.ELECTRON.UPDATE_PROJECT_STATE_DIRTY,
-        async (_event, ...args: Parameters<ElectronAPPIUpdateProjectStateDirtyFn>) => {
+        async (_event, ...args: Parameters<ElectronAPI["updateProjectStateDirty"]>) => {
             const [isDirty] = args;
             const menu = Menu.getApplicationMenu();
             if (!menu) return;
@@ -36,24 +31,28 @@ export function registerElectronHandlers() {
             if (saveAsItem) {
                 saveAsItem.enabled = isDirty;
             }
-        }
+        },
     );
 
-    // Get all opened windows
     ipcMain.handle(
         IPC_CHANNELS.ELECTRON.GET_WINDOWS,
-        async (_event, ..._args: Parameters<ElectronAPIGetWindowsFn>): ReturnType<ElectronAPIGetWindowsFn> => {
-            const sources = await desktopCapturer.getSources({ types: ["window"] });
-            return sources.map((source) => ({ id: source.id, name: source.name }));
-        }
+        async (_event, ..._args: Parameters<ElectronAPI["getWindows"]>): ReturnType<ElectronAPI["getWindows"]> => {
+            const sources = await desktopCapturer.getSources({
+                types: ["window"],
+            });
+            return sources.map((source) => ({
+                id: source.id,
+                name: source.name,
+            }));
+        },
     );
 
     ipcMain.handle(
         IPC_CHANNELS.ELECTRON.SHOW_SAVE_AS_DIALOG,
         async (
             _event,
-            ..._args: Parameters<ElectronAPIShowSaveAsDialogFn>
-        ): ReturnType<ElectronAPIShowSaveAsDialogFn> => {
+            ..._args: Parameters<ElectronAPI["showSaveAsDialog"]>
+        ): ReturnType<ElectronAPI["showSaveAsDialog"]> => {
             // Указываем путь и название файла
             const { canceled, filePath } = await dialog.showSaveDialog({
                 title: "Сохранить проект",
@@ -64,6 +63,6 @@ export function registerElectronHandlers() {
             const fileName = path.basename(filePath);
 
             return { filePath, fileName };
-        }
+        },
     );
 }

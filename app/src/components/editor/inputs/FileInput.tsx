@@ -8,7 +8,7 @@ import { AppDispatch } from "@/store";
 import { actions as editorActions } from "@/features/editor/editorSlice";
 import { ImageNodeItem } from "@/features/editor/types";
 
-import "../inputs.css";
+import "./inputs.css";
 
 const FileInput = () => {
     const { isDialogOpen } = useSelector(selectProjectState);
@@ -55,6 +55,7 @@ const FileInput = () => {
                     x: 0,
                     y: 0,
                     rotation: 0,
+                    locked: true,
                 },
             };
 

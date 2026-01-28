@@ -1,1 +1,2 @@
-export { default as FileInput } from "./FileInput/FileInput";
+export { default as FileInput } from "./FileInput";
+export { default as WindowScreenshotInput } from "./WindowScreenshotInput";

@@ -51,6 +51,7 @@ export interface NodeItemTransform {
     x: number;
     y: number;
     rotation: number;
+    locked: boolean;
 }
 
 export interface ImageNodeItem extends NodeItemBase {

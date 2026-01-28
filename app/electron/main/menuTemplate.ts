@@ -13,37 +13,25 @@ export const menuTemplate: Electron.MenuItemConstructorOptions[] = [
             {
                 label: "New",
                 accelerator: "CmdOrCtrl+N",
-                click: () =>
-                    withFocusedWindow((win) =>
-                        win.webContents.send(IPC_CHANNELS.MENU.NEW_PROJECT)
-                    ),
+                click: () => withFocusedWindow((win) => win.webContents.send(IPC_CHANNELS.MENU.NEW_PROJECT)),
             },
             {
                 label: "Open File",
                 accelerator: "CmdOrCtrl+O",
-                click: () =>
-                    withFocusedWindow((win) =>
-                        win.webContents.send(IPC_CHANNELS.MENU.OPEN_PROJECT)
-                    ),
+                click: () => withFocusedWindow((win) => win.webContents.send(IPC_CHANNELS.MENU.OPEN_PROJECT)),
             },
             { type: "separator" },
             {
                 id: "saveProject",
                 label: "Save",
                 accelerator: "CmdOrCtrl+S",
-                click: () =>
-                    withFocusedWindow((win) =>
-                        win.webContents.send(IPC_CHANNELS.MENU.SAVE_PROJECT)
-                    ),
+                click: () => withFocusedWindow((win) => win.webContents.send(IPC_CHANNELS.MENU.SAVE_PROJECT)),
             },
             {
                 id: "saveProjectAs",
                 label: "Save As...",
                 accelerator: "CmdOrCtrl+Shift+S",
-                click: () =>
-                    withFocusedWindow((win) =>
-                        win.webContents.send(IPC_CHANNELS.MENU.SAVE_PROJECT_AS)
-                    ),
+                click: () => withFocusedWindow((win) => win.webContents.send(IPC_CHANNELS.MENU.SAVE_PROJECT_AS)),
             },
         ],
     },
@@ -53,10 +41,7 @@ export const menuTemplate: Electron.MenuItemConstructorOptions[] = [
             {
                 label: "Record Actions",
                 accelerator: "R",
-                click: () =>
-                    withFocusedWindow((win) =>
-                        win.webContents.send("menu:record-actions")
-                    ),
+                click: () => withFocusedWindow((win) => win.webContents.send("menu:record-actions")),
             },
         ],
     },
@@ -71,46 +56,31 @@ export const menuTemplate: Electron.MenuItemConstructorOptions[] = [
             {
                 label: "Force Reload",
                 accelerator: "Ctrl+Shift+R",
-                click: () =>
-                    withFocusedWindow((win) =>
-                        win.webContents.reloadIgnoringCache()
-                    ),
+                click: () => withFocusedWindow((win) => win.webContents.reloadIgnoringCache()),
             },
             {
                 label: "Toggle Developer Tools",
                 accelerator: "CmdOrCtrl+Shift+I",
-                click: () =>
-                    withFocusedWindow((win) =>
-                        win.webContents.toggleDevTools()
-                    ),
+                click: () => withFocusedWindow((win) => win.webContents.toggleDevTools()),
             },
             { type: "separator" },
             {
                 label: "Actual Size",
                 accelerator: "Ctrl+0",
-                click: () =>
-                    withFocusedWindow((win) => win.webContents.setZoomLevel(0)),
+                click: () => withFocusedWindow((win) => win.webContents.setZoomLevel(0)),
             },
             {
                 label: "Zoom In",
                 accelerator: "Ctrl+=",
                 click: () => {
-                    withFocusedWindow((win) =>
-                        win.webContents.setZoomLevel(
-                            win.webContents.getZoomLevel() + 0.5
-                        )
-                    );
+                    withFocusedWindow((win) => win.webContents.setZoomLevel(win.webContents.getZoomLevel() + 0.5));
                 },
             },
             {
                 label: "Zoom Out",
                 accelerator: "Ctrl+-",
                 click: () => {
-                    withFocusedWindow((win) =>
-                        win.webContents.setZoomLevel(
-                            win.webContents.getZoomLevel() - 0.5
-                        )
-                    );
+                    withFocusedWindow((win) => win.webContents.setZoomLevel(win.webContents.getZoomLevel() - 0.5));
                 },
             },
             { type: "separator" },
@@ -118,9 +88,7 @@ export const menuTemplate: Electron.MenuItemConstructorOptions[] = [
                 label: "Toggle Full Screen",
                 accelerator: "F11",
                 click: () => {
-                    withFocusedWindow((win) =>
-                        win.setFullScreen(!win.isFullScreen())
-                    );
+                    withFocusedWindow((win) => win.setFullScreen(!win.isFullScreen()));
                 },
             },
         ],

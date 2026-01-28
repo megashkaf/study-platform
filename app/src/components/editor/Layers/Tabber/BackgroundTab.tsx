@@ -1,4 +1,4 @@
-import { FileInput } from "@/components/Editor/inputs";
+import { FileInput, WindowScreenshotInput } from "@/components/Editor/inputs";
 
 const BackgroundTab = () => {
     return (
@@ -9,10 +9,7 @@ const BackgroundTab = () => {
             </div>
             <div className="mb-2">
                 <span>Быстрое создание фона:</span>
-                <div className="custom-input" id="file">
-                    <button>Выбрать</button>
-                    <span>Не выбрано</span>
-                </div>
+                <WindowScreenshotInput />
             </div>
         </div>
     );

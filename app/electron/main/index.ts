@@ -5,12 +5,9 @@ import path from "node:path";
 import os from "node:os";
 import fsp from "fs/promises";
 import { update } from "./update";
-import { menuTemplate } from "./menu";
+import { menuTemplate } from "./menuTemplate";
 
-import installExtension, {
-    REDUX_DEVTOOLS,
-    REACT_DEVELOPER_TOOLS,
-} from "electron-devtools-installer";
+import installExtension, { REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS } from "electron-devtools-installer";
 
 import { registerIpcHandlers } from "./ipcHandlers";
 
@@ -35,9 +32,7 @@ export const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 export const VITE_DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL;
 
-process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
-    ? path.join(process.env.APP_ROOT, "public")
-    : RENDERER_DIST;
+process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
 
 // Disable GPU Acceleration for Windows 7
 if (os.release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -78,10 +73,7 @@ async function createWindow() {
 
     // Test actively push message to the Electron-Renderer
     win.webContents.on("did-finish-load", () => {
-        win?.webContents.send(
-            "main-process-message",
-            new Date().toLocaleString()
-        );
+        win?.webContents.send("main-process-message", new Date().toLocaleString());
     });
 
     // Make all links open with the browser, not with the application
@@ -98,9 +90,7 @@ app.whenReady().then(async () => {
     // DevTools
     if (!app.isPackaged) {
         installExtension([REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS])
-            .then(([redux, react]) =>
-                console.log(`Added Extensions:  ${redux.name}, ${react.name}`)
-            )
+            .then(([redux, react]) => console.log(`Added Extensions:  ${redux.name}, ${react.name}`))
             .catch((err) => console.log("An error occurred: ", err));
     }
 
