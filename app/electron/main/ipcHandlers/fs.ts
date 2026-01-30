@@ -55,9 +55,9 @@ export function registerFsHandlers() {
             const ext = path.extname(dialogPath);
             const base = path.basename(dialogPath, ext);
             const name = base + ext;
-            const fileName = `${base}_${id}${ext}`;
-            const tempPath = path.join(TEMP_IMAGES_DIR, fileName);
-            const relPath = `images/${fileName}`;
+            const tempName = `${base}_${id}${ext}`;
+            const tempPath = path.join(TEMP_IMAGES_DIR, tempName);
+            const relPath = `images/${tempName}`;
 
             await fsp.copyFile(dialogPath, tempPath);
 

@@ -42,5 +42,12 @@ export interface ProjectAPI {
 
 // --------- Screenshot API ---------
 export interface ScreenshotAPI {
-    captureWindow(): void;
+    captureWindow(windowId: string): Promise<{
+        id: string;
+        tempPath: string;
+        relPath: string;
+        name: string;
+        width: number;
+        height: number;
+    }>;
 }

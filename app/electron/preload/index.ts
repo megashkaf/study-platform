@@ -49,7 +49,7 @@ export const projectAPI: ProjectAPI = {
 contextBridge.exposeInMainWorld("projectAPI", projectAPI);
 
 export const screenshotAPI: ScreenshotAPI = {
-    captureWindow: () => ipcRenderer.invoke(IPC_CHANNELS.SCREENSHOT.CAPTURE_WINDOW),
+    captureWindow: (windowId) => ipcRenderer.invoke(IPC_CHANNELS.SCREENSHOT.CAPTURE_WINDOW, windowId),
 };
 contextBridge.exposeInMainWorld("screenshotAPI", screenshotAPI);
 

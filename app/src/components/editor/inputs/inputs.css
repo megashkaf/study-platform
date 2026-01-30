@@ -2,6 +2,10 @@
     @apply p-1 border border-solid rounded-lg text-sm;
     background-color: var(--bg-color);
     border-color: var(--border-color);
+    display: flex;
+    align-items: center;
+    width: 100%; /* ограничение обязательно */
+    gap: 4px;
 }
 .custom-input button {
     all: unset;
@@ -9,7 +13,29 @@
     cursor: pointer;
     background-color: var(--bg-primary-color);
     color: var(--text-primary-color);
+    flex-shrink: 0;
 }
 .custom-input span {
     @apply ml-1;
+}
+.custom-input select {
+    /* all: unset; */
+    @apply p-1 rounded-sm;
+    cursor: pointer;
+    background-color: var(--bg-primary-color);
+    border-color: var(--bg-primary-color);
+    color: var(--text-primary-color);
+}
+.custom-input select option {
+}
+.select-ellipsis {
+    flex: 1; /* select занимает остаток */
+    min-width: 0; /* КРИТИЧНО для ellipsis в flex */
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    /* для аккуратности */
+    padding-right: 24px; /* чтобы стрелка не перекрывала текст */
 }
