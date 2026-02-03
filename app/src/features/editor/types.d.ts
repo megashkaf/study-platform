@@ -51,7 +51,7 @@ export interface NodeItemTransform {
     x: number;
     y: number;
     rotation: number;
-    locked: boolean;
+    isLocked: boolean;
 }
 
 export interface ImageNodeItem extends NodeItemBase {
@@ -60,4 +60,11 @@ export interface ImageNodeItem extends NodeItemBase {
     relPath: string;
 }
 
-export type AnyNodeItem = ImageNodeItem; // | RectNodeItem | InputNodeItem;
+export interface TextNodeItem extends NodeItemBase {
+    type: "text";
+    text: string;
+    fontSize: number;
+    padding: number;
+}
+
+export type AnyNodeItem = ImageNodeItem | TextNodeItem; // | RectNodeItem | InputNodeItem;

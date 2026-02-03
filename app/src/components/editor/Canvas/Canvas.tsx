@@ -8,7 +8,7 @@ import {
 } from "@/features/editor/selectors";
 
 import { Layer, Stage } from "react-konva";
-import { NodeRenderer } from "./NodeRenderer";
+import AnyNodeRenderer from "./AnyNodeRenderer";
 
 import { ItemParams } from "react-contexify";
 import { useContextMenu } from "@/hooks";
@@ -35,9 +35,7 @@ const Canvas = () => {
         }
     };
 
-    const menuOptions = [
-        { id: "delete", label: "Удалить", onClick: handleItemClick },
-    ];
+    const menuOptions = [{ id: "delete", label: "Удалить", onClick: handleItemClick }];
 
     const { handleShowMenu, menu, hideAll } = useContextMenu({
         menuId: "node-context-menu",
@@ -54,16 +52,12 @@ const Canvas = () => {
                     scaleY={scale}
                     className="stage"
                 >
-                    {layers.toReversed().map((layer) => (
+                    {layers.map((layer) => (
                         <Layer key={layer.id}>
                             {nodes
                                 .filter((node) => node.layerId === layer.id)
                                 .map((node) => (
-                                    <NodeRenderer
-                                        key={node.id}
-                                        node={node}
-                                        handleShowMenu={handleShowMenu}
-                                    />
+                                    <AnyNodeRenderer key={node.id} node={node} handleShowMenu={handleShowMenu} />
                                 ))}
                         </Layer>
                     ))}

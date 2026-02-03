@@ -1,8 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import {
-    selectActiveLayerType,
-    selectProjectState,
-} from "@/features/editor/selectors";
+import { selectActiveLayerType, selectProjectState } from "@/features/editor/selectors";
 
 import { AppDispatch } from "@/store";
 import { actions as editorActions } from "@/features/editor/editorSlice";
@@ -31,16 +28,12 @@ const FileInput = () => {
         );
     };
 
-    const addTempImageNode = async (
-        dispatch: AppDispatch,
-        isDialogOpen: boolean,
-    ) => {
+    const addTempImageNode = async (dispatch: AppDispatch, isDialogOpen: boolean) => {
         if (isDialogOpen) return;
         dispatch(editorActions.updateProjectState({ isDialogOpen: true }));
 
         try {
-            const { id, tempPath, relPath, name, width, height } =
-                await window.fsAPI.addTempImage();
+            const { id, tempPath, relPath, name, width, height } = await window.fsAPI.addTempImage();
 
             const image: ImageNodeItem = {
                 id,
@@ -55,7 +48,7 @@ const FileInput = () => {
                     x: 0,
                     y: 0,
                     rotation: 0,
-                    locked: true,
+                    isLocked: true,
                 },
             };
 

@@ -1,10 +1,18 @@
 .element-inspector-container {
     @apply w-full h-full  flex justify-center items-center p-4;
-    height: 300px;
+    height: 500px;
 }
 .element-inspector {
-    @apply w-full h-full flex  justify-center items-center border border-solid;
+    @apply w-full h-full flex  justify-center items-center text-xs;
     color: var(--layer-list-text-color);
     background-color: var(--bg-color);
-    border-color: var(--border-color);
+}
+.element-inspector table {
+    @apply w-full h-full;
+    border-collapse: collapse;
+}
+.element-inspector table td,
+.element-inspector table th {
+    @apply p-1;
+    border: 1px solid var(--border-color);
 }

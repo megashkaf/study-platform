@@ -31,7 +31,7 @@ const WindowScreenshotInput = () => {
                     x: 0,
                     y: 0,
                     rotation: 0,
-                    locked: true,
+                    isLocked: true,
                 },
             };
 
