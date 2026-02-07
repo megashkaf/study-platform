@@ -85,6 +85,10 @@ const TextNodeRenderer = ({ node, handleShowMenu }: TextNodeRendererProps) => {
         dispatch(editorActions.updateNode(updatedNode));
     };
 
+    const handleDblClick = (e: KonvaEventObject<Event>) => {
+        // Заготовка для редактирования текста с помощью двойного клика
+    };
+
     return (
         <>
             <KonvaGroup ref={konvaGroupRef}>
@@ -110,6 +114,7 @@ const TextNodeRenderer = ({ node, handleShowMenu }: TextNodeRendererProps) => {
                     padding={node.padding}
                     align="center"
                     verticalAlign="middle"
+                    onDblClick={handleDblClick}
                 />
             </KonvaGroup>
             <KonvaRect

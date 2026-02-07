@@ -26,7 +26,7 @@ const ElementInspector = () => {
                         </thead>
                         <tbody>
                             {Object.entries(node).map(([prop, value]) => (
-                                <TableProperty key={prop} prop={prop} value={value} />
+                                <TableProperty key={prop} prop={prop} value={value} node={node} />
                             ))}
                         </tbody>
                     </table>
