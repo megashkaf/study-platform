@@ -3,22 +3,21 @@ import { ComponentRef, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actions as editorActions } from "@/features/editor/editorSlice";
 import { selectAllActiveIds, selectPlayerState } from "@/features/editor/selectors";
-import { TextNodeItem } from "@/features/editor/types";
+import { RectInputNodeItem } from "@/features/editor/types";
 
-import { Group as KonvaGroup, Text as KonvaText, Rect as KonvaRect, Transformer } from "react-konva";
+import { Rect as KonvaRect, Transformer } from "react-konva";
 import { KonvaEventObject } from "konva/lib/Node";
 
-interface TextNodeRendererProps {
-    node: TextNodeItem;
+interface RectInputNodeRendererProps {
+    node: RectInputNodeItem;
     handleShowMenu: (event: any) => void;
 }
 
-const TextNodeRenderer = ({ node, handleShowMenu }: TextNodeRendererProps) => {
+const RectInputNodeRenderer = ({ node, handleShowMenu }: RectInputNodeRendererProps) => {
     const { playerState } = useSelector(selectPlayerState);
     const { activeNodeId, activeLayerId } = useSelector(selectAllActiveIds);
     const dispatch = useDispatch();
 
-    const konvaGroupRef = useRef<ComponentRef<typeof KonvaGroup>>(null);
     const konvaRectRef = useRef<ComponentRef<typeof KonvaRect>>(null);
     const transformerRef = useRef<ComponentRef<typeof Transformer>>(null);
 
@@ -41,10 +40,9 @@ const TextNodeRenderer = ({ node, handleShowMenu }: TextNodeRendererProps) => {
     };
 
     const handleTransformEnd = (e: KonvaEventObject<Event>) => {
-        const konvaGroupNode = konvaGroupRef.current;
         const konvaRectNode = konvaRectRef.current;
 
-        if (!konvaGroupNode || !konvaRectNode) return;
+        if (!konvaRectNode) return;
 
         const scaleX = konvaRectNode.scaleX();
         const scaleY = konvaRectNode.scaleY();
@@ -54,7 +52,7 @@ const TextNodeRenderer = ({ node, handleShowMenu }: TextNodeRendererProps) => {
         konvaRectNode.width(Math.max(5, konvaRectNode.width() * scaleX));
         konvaRectNode.height(Math.max(5, konvaRectNode.height() * scaleY));
 
-        const updatedNode: TextNodeItem = {
+        const updatedNode: RectInputNodeItem = {
             ...node, // копируем все свойства старого узла
             transform: {
                 // создаём новый объект transform
@@ -75,7 +73,7 @@ const TextNodeRenderer = ({ node, handleShowMenu }: TextNodeRendererProps) => {
 
         if (!konvaRectNode) return;
 
-        const updatedNode: TextNodeItem = {
+        const updatedNode: RectInputNodeItem = {
             ...node, // копируем все свойства старого узла
             transform: {
                 ...node.transform,
@@ -87,38 +85,8 @@ const TextNodeRenderer = ({ node, handleShowMenu }: TextNodeRendererProps) => {
         dispatch(editorActions.updateNode(updatedNode));
     };
 
-    const handleDblClick = (e: KonvaEventObject<Event>) => {
-        // Заготовка для редактирования текста с помощью двойного клика
-    };
-
     return (
         <>
-            <KonvaGroup ref={konvaGroupRef}>
-                <KonvaRect
-                    x={node.transform.x}
-                    y={node.transform.y}
-                    rotation={node.transform.rotation}
-                    width={node.transform.width}
-                    height={node.transform.height}
-                    fill="black"
-                    cornerRadius={12}
-                />
-
-                <KonvaText
-                    x={node.transform.x}
-                    y={node.transform.y}
-                    rotation={node.transform.rotation}
-                    width={node.transform.width}
-                    height={node.transform.height}
-                    fill="white"
-                    text={node.text}
-                    fontSize={node.fontSize}
-                    padding={node.padding}
-                    align="center"
-                    verticalAlign="middle"
-                    onDblClick={handleDblClick}
-                />
-            </KonvaGroup>
             <KonvaRect
                 ref={konvaRectRef}
                 x={node.transform.x}
@@ -126,12 +94,13 @@ const TextNodeRenderer = ({ node, handleShowMenu }: TextNodeRendererProps) => {
                 rotation={node.transform.rotation}
                 width={node.transform.width}
                 height={node.transform.height}
+                fill="red"
+                opacity={0.5}
                 onContextMenu={handleShowMenu}
                 draggable={activeNodeId === node.id && !node.transform.isLocked}
                 onDragEnd={handleDragEnd}
                 onClick={handleOnClick}
                 onTransformEnd={handleTransformEnd}
-                // fill="yellow"
             />
             {!node.transform.isLocked && (
                 <Transformer ref={transformerRef} rotateEnabled={true} anchorSize={10} borderDash={[6, 2]} />
@@ -140,4 +109,4 @@ const TextNodeRenderer = ({ node, handleShowMenu }: TextNodeRendererProps) => {
     );
 };
 
-export default TextNodeRenderer;
+export default RectInputNodeRenderer;

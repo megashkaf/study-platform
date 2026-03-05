@@ -3,7 +3,7 @@ import { addSlideData } from "./slide";
 import { addLayerData, defaultLayerDatas } from "./layer";
 import { EditorState, Presentation } from "../types";
 
-export const addPresentationData = (): EditorState => {
+export const addEditorData = (): EditorState => {
     const state: EditorState = {
         id: nanoid(),
         presentation: {
@@ -20,6 +20,9 @@ export const addPresentationData = (): EditorState => {
             filePath: null,
             isDirty: true,
             isDialogOpen: false,
+        },
+        player: {
+            isVisible: false,
         },
     };
 
@@ -53,7 +56,7 @@ export const addPresentationData = (): EditorState => {
 };
 
 export const addPresentationReducer = (state: WritableDraft<EditorState>) => {
-    const newState = addPresentationData();
+    const newState = addEditorData();
     Object.assign(state, newState);
 };
 
@@ -82,17 +85,12 @@ export const updatePresentationReducer = (
     };
 };
 
-export const removePresentationReducer = (
-    state: WritableDraft<EditorState>,
-) => {
-    const newState = addPresentationData();
+export const removePresentationReducer = (state: WritableDraft<EditorState>) => {
+    const newState = addEditorData();
     Object.assign(state, newState);
 };
 
-export const setTitleReducer = (
-    state: WritableDraft<EditorState>,
-    action: PayloadAction<string>,
-) => {
+export const setTitleReducer = (state: WritableDraft<EditorState>, action: PayloadAction<string>) => {
     state.presentation.title = action.payload;
     state.projectState.isDirty = true;
 };

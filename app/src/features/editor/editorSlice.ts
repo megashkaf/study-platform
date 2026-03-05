@@ -1,36 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import {
-    addPresentationData,
+    addEditorData,
     addPresentationReducer,
     removePresentationReducer,
     setTitleReducer,
     updatePresentationReducer,
 } from "./reducers/presentation";
-import {
-    addSlideReducer,
-    removeSlideReducer,
-    reorderSlidesReducer,
-    selectSlideReducer,
-} from "./reducers/slide";
-import {
-    addLayerReducer,
-    removeLayerReducer,
-    reorderLayersReducer,
-    selectLayerReducer,
-} from "./reducers/layer";
-import {
-    addNodeReducer,
-    removeNodeReducer,
-    selectNodeReducer,
-    updateNodeReducer,
-} from "./reducers/node";
+import { addSlideReducer, removeSlideReducer, reorderSlidesReducer, selectSlideReducer } from "./reducers/slide";
+import { addLayerReducer, removeLayerReducer, reorderLayersReducer, selectLayerReducer } from "./reducers/layer";
+import { addNodeReducer, removeNodeReducer, selectNodeReducer, updateNodeReducer } from "./reducers/node";
 import { zoomInReducer, zoomOutReducer } from "./reducers/canvas";
 import { setProjectStateReducer } from "./reducers/projectState";
+import { setPlayerStateReducer } from "./reducers/player";
 
-const presentationSlice = createSlice({
+const editorSlice = createSlice({
     name: "presentation",
-    initialState: addPresentationData(),
+    initialState: addEditorData(),
     reducers: {
         // --------- Presentation ---------
         addPresentation: addPresentationReducer,
@@ -62,9 +48,12 @@ const presentationSlice = createSlice({
 
         // --------- ProjectState ---------
         updateProjectState: setProjectStateReducer,
+
+        // --------- Player ---------
+        setPlayerState: setPlayerStateReducer,
     },
 });
 
-export const actions = presentationSlice.actions;
+export const actions = editorSlice.actions;
 
-export default presentationSlice.reducer;
+export default editorSlice.reducer;

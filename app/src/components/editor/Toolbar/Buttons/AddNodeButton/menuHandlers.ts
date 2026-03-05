@@ -1,6 +1,6 @@
 import { actions as editorActions } from "@/features/editor/editorSlice";
 import { AppDispatch } from "@/store";
-import { ImageNodeItem, TextNodeItem } from "@/features/editor/types";
+import { ImageNodeItem, RectInputNodeItem, TextNodeItem } from "@/features/editor/types";
 import { nanoid } from "@reduxjs/toolkit";
 
 export const addImageNode = async (dispatch: AppDispatch, isDialogOpen: boolean) => {
@@ -57,4 +57,25 @@ export const addTextNode = async (dispatch: AppDispatch, isDialogOpen: boolean) 
     };
 
     dispatch(editorActions.addNode(text));
+};
+
+export const addRectInputNode = async (dispatch: AppDispatch, isDialogOpen: boolean) => {
+    if (isDialogOpen) return;
+
+    const rect: RectInputNodeItem = {
+        id: nanoid(),
+        type: "rectInput",
+        layerId: "", // id присваивается в addNode()
+        name: "Новый текст",
+        transform: {
+            width: 500,
+            height: 100,
+            x: 0,
+            y: 0,
+            rotation: 0,
+            isLocked: false,
+        },
+    };
+
+    dispatch(editorActions.addNode(rect));
 };

@@ -10,6 +10,9 @@ export interface EditorState {
         isDirty: boolean;
         isDialogOpen: boolean;
     };
+    player: {
+        isVisible: boolean;
+    };
 }
 
 interface NormalizedData<T extends { id: string }> {
@@ -67,4 +70,14 @@ export interface TextNodeItem extends NodeItemBase {
     padding: number;
 }
 
-export type AnyNodeItem = ImageNodeItem | TextNodeItem; // | RectNodeItem | InputNodeItem;
+export interface MaskInputNodeItem extends NodeItemBase {
+    type: "maskInput";
+    tempPath: string;
+    relPath: string;
+}
+
+export interface RectInputNodeItem extends NodeItemBase {
+    type: "rectInput";
+}
+
+export type AnyNodeItem = ImageNodeItem | TextNodeItem | MaskInputNodeItem | RectInputNodeItem; // | RectNodeItem | InputNodeItem;

@@ -1,0 +1,22 @@
+.player-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    background-color: black;
+
+    z-index: 1000; /* выше остальных */
+    pointer-events: auto; /* обязательно, если ранее где-то было none */
+}
+
+.player-overlay .stage-wrapper {
+    display: grid;
+    place-items: center;
+    @apply w-full h-full;
+}
+
+.player-overlay .stage-wrapper .stage {
+    @apply bg-white;
+}

@@ -2,12 +2,11 @@ import { ComponentRef, useEffect, useRef, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { actions as editorActions } from "@/features/editor/editorSlice";
-import { selectAllActiveIds } from "@/features/editor/selectors";
+import { selectAllActiveIds, selectPlayerState } from "@/features/editor/selectors";
 import { ImageNodeItem } from "@/features/editor/types";
 
 import { Image as KonvaImage, Transformer } from "react-konva";
 import type { Image as KonvaImageType } from "konva/lib/shapes/Image";
-import type { Transformer as TransformerType } from "konva/lib/shapes/Transformer";
 import { KonvaEventObject } from "konva/lib/Node";
 
 interface ImageNodeRendererProps {
@@ -17,6 +16,7 @@ interface ImageNodeRendererProps {
 
 const ImageNodeRenderer = ({ node, handleShowMenu }: ImageNodeRendererProps) => {
     const { activeNodeId } = useSelector(selectAllActiveIds);
+    const { playerState } = useSelector(selectPlayerState);
     const dispatch = useDispatch();
 
     const [image, setImage] = useState<HTMLImageElement | null>(null);
@@ -89,7 +89,10 @@ const ImageNodeRenderer = ({ node, handleShowMenu }: ImageNodeRendererProps) => 
 
     const handleDragEnd = (e: KonvaEventObject<Event>) => updateTransform(e.target as KonvaImageType);
 
-    const handleOnClick = (e: KonvaEventObject<Event>) => dispatch(editorActions.selectNode(node.id));
+    const handleOnClick = (e: KonvaEventObject<Event>) => {
+        if (playerState.isVisible) return;
+        dispatch(editorActions.selectNode(node.id));
+    };
 
     if (!image) return null;
 
