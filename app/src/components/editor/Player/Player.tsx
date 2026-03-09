@@ -1,41 +1,31 @@
 import { useSelector, useDispatch } from "react-redux";
 import { actions as editorActions } from "@/features/editor/editorSlice";
-import { selectActiveSlideLayers, selectActiveSlideNodes, selectAllActiveIds } from "@/features/editor/selectors";
+import { selectActiveSlideLayers, selectActiveSlideNodes, selectPlayerState } from "@/features/editor/selectors";
 
 import { Layer, Stage } from "react-konva";
 import AnyNodeRenderer from "../Canvas/AnyNodeRenderer";
-
-import { ItemParams } from "react-contexify";
-import { useContextMenu } from "@/hooks";
 
 import "./player.css";
 
 const Player = () => {
     const stageWidth = 1920;
     const stageHeight = 1080;
+    const scale = 0.8;
 
     // Redux
-    const { activeNodeId } = useSelector(selectAllActiveIds);
-    const scale = 0.8;
+    const { playerState } = useSelector(selectPlayerState);
     const layers = useSelector(selectActiveSlideLayers);
     const nodes = useSelector(selectActiveSlideNodes);
     const dispatch = useDispatch();
 
-    const handleItemClick = ({ id }: ItemParams) => {
-        switch (id) {
-            case "delete":
-                hideAll();
-                dispatch(editorActions.removeNode(activeNodeId as string));
-                break;
+    const handleStageClick = (e: any) => {
+        // if (e.target === e.target.getStage()) {
+        // }
+        if (e.target.attrs.name != "rect-input") {
+            console.log("Ошибка!");
+            dispatch(editorActions.addMistake());
         }
     };
-
-    const menuOptions = [{ id: "delete", label: "Удалить", onClick: handleItemClick }];
-
-    const { handleShowMenu, menu, hideAll } = useContextMenu({
-        menuId: "node-context-menu",
-        options: menuOptions,
-    });
 
     return (
         <div className="player-overlay">
@@ -46,18 +36,18 @@ const Player = () => {
                     scaleX={scale}
                     scaleY={scale}
                     className="stage"
+                    onClick={handleStageClick}
                 >
                     {layers.map((layer) => (
                         <Layer key={layer.id}>
                             {nodes
                                 .filter((node) => node.layerId === layer.id)
                                 .map((node) => (
-                                    <AnyNodeRenderer key={node.id} node={node} handleShowMenu={handleShowMenu} />
+                                    <AnyNodeRenderer key={node.id} node={node} />
                                 ))}
                         </Layer>
                     ))}
                 </Stage>
-                {menu}
             </div>
         </div>
     );

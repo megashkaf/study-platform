@@ -6,7 +6,7 @@ import RectInputNodeRenderer from "./RectInputNodeRenderer";
 
 interface AnyNodeRendererProps {
     node: AnyNodeItem;
-    handleShowMenu: (event: any) => void;
+    handleShowMenu?: (event: any) => void;
 }
 
 const AnyNodeRenderer = ({ node, handleShowMenu }: AnyNodeRendererProps) => {

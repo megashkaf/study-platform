@@ -10,7 +10,7 @@ import { KonvaEventObject } from "konva/lib/Node";
 
 interface MaskInputNodeRendererProps {
     node: MaskInputNodeItem;
-    handleShowMenu: (event: any) => void;
+    handleShowMenu?: (event: any) => void;
 }
 
 const MaskInputNodeRenderer = ({ node, handleShowMenu }: MaskInputNodeRendererProps) => {
@@ -42,8 +42,11 @@ const MaskInputNodeRenderer = ({ node, handleShowMenu }: MaskInputNodeRendererPr
 
     // События
     const handleOnClick = (e: KonvaEventObject<Event>) => {
-        if (playerState.isVisible) return;
-        dispatch(editorActions.selectNode(node.id));
+        if (playerState.isVisible) {
+            dispatch(editorActions.selectNextSlide());
+        } else {
+            dispatch(editorActions.selectNode(node.id));
+        }
     };
 
     if (!image) return null;

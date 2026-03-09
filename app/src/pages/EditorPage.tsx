@@ -21,7 +21,12 @@ const EditorPage = () => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "F11") {
                 e.preventDefault();
-                dispatch(editorActions.setPlayerState(!playerState.isVisible));
+
+                if (playerState.isVisible) {
+                    dispatch(editorActions.setPlayerVisibility(false));
+                } else {
+                    dispatch(editorActions.startPlayer());
+                }
             }
         };
 

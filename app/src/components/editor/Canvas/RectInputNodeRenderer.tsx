@@ -10,7 +10,7 @@ import { KonvaEventObject } from "konva/lib/Node";
 
 interface RectInputNodeRendererProps {
     node: RectInputNodeItem;
-    handleShowMenu: (event: any) => void;
+    handleShowMenu?: (event: any) => void;
 }
 
 const RectInputNodeRenderer = ({ node, handleShowMenu }: RectInputNodeRendererProps) => {
@@ -34,7 +34,10 @@ const RectInputNodeRenderer = ({ node, handleShowMenu }: RectInputNodeRendererPr
 
     // События
     const handleOnClick = (e: KonvaEventObject<Event>) => {
-        if (playerState.isVisible) return;
+        if (playerState.isVisible) {
+            dispatch(editorActions.selectNextSlide());
+        }
+
         if (node.layerId !== activeLayerId) return;
         dispatch(editorActions.selectNode(node.id));
     };
@@ -88,13 +91,14 @@ const RectInputNodeRenderer = ({ node, handleShowMenu }: RectInputNodeRendererPr
     return (
         <>
             <KonvaRect
+                name="rect-input"
                 ref={konvaRectRef}
                 x={node.transform.x}
                 y={node.transform.y}
                 rotation={node.transform.rotation}
                 width={node.transform.width}
                 height={node.transform.height}
-                fill="red"
+                fill={!playerState.isVisible || playerState.mistakes >= 3 ? "red" : "transparent"}
                 opacity={0.5}
                 onContextMenu={handleShowMenu}
                 draggable={activeNodeId === node.id && !node.transform.isLocked}

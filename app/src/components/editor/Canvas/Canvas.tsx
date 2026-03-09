@@ -42,6 +42,12 @@ const Canvas = () => {
         options: menuOptions,
     });
 
+    const handleStageClick = (e: any) => {
+        if (e.target === e.target.getStage()) {
+            dispatch(editorActions.selectNode(null));
+        }
+    };
+
     return (
         <div className="canvas-container">
             <div className="stage-wrapper">
@@ -51,6 +57,7 @@ const Canvas = () => {
                     scaleX={scale}
                     scaleY={scale}
                     className="stage"
+                    onClick={handleStageClick}
                 >
                     {layers.map((layer) => (
                         <Layer key={layer.id}>

@@ -11,7 +11,7 @@ import { KonvaEventObject } from "konva/lib/Node";
 
 interface ImageNodeRendererProps {
     node: ImageNodeItem;
-    handleShowMenu: (event: any) => void;
+    handleShowMenu?: (event: any) => void;
 }
 
 const ImageNodeRenderer = ({ node, handleShowMenu }: ImageNodeRendererProps) => {

@@ -2,7 +2,7 @@ import { ComponentRef, useEffect, useRef } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { actions as editorActions } from "@/features/editor/editorSlice";
-import { selectAllActiveIds, selectPlayerState } from "@/features/editor/selectors";
+import { selectActiveLayer, selectAllActiveIds, selectAllLayers, selectPlayerState } from "@/features/editor/selectors";
 import { TextNodeItem } from "@/features/editor/types";
 
 import { Group as KonvaGroup, Text as KonvaText, Rect as KonvaRect, Transformer } from "react-konva";
@@ -10,12 +10,13 @@ import { KonvaEventObject } from "konva/lib/Node";
 
 interface TextNodeRendererProps {
     node: TextNodeItem;
-    handleShowMenu: (event: any) => void;
+    handleShowMenu?: (event: any) => void;
 }
 
 const TextNodeRenderer = ({ node, handleShowMenu }: TextNodeRendererProps) => {
     const { playerState } = useSelector(selectPlayerState);
     const { activeNodeId, activeLayerId } = useSelector(selectAllActiveIds);
+    const layer = useSelector(selectAllLayers).find((v) => v.id === node.layerId);
     const dispatch = useDispatch();
 
     const konvaGroupRef = useRef<ComponentRef<typeof KonvaGroup>>(null);
@@ -90,6 +91,8 @@ const TextNodeRenderer = ({ node, handleShowMenu }: TextNodeRendererProps) => {
     const handleDblClick = (e: KonvaEventObject<Event>) => {
         // Заготовка для редактирования текста с помощью двойного клика
     };
+
+    if (playerState.isVisible && layer?.type === "hints" && playerState.mistakes < 2) return;
 
     return (
         <>
