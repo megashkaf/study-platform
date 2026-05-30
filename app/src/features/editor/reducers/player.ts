@@ -14,7 +14,8 @@ export const startPlayerReducer = (state: WritableDraft<EditorState>, _action: P
 
     state.player = {
         isVisible: true,
-        mistakes: 0,
+        localMistakes: 0,
+        globalMistakes: 0,
     };
 };
 
@@ -30,24 +31,29 @@ export const selectNextSlideReducer = (state: WritableDraft<EditorState>) => {
         // Конец презентации
         const sessionData = {
             user: "Тестовый ученик",
-            mistakes: state.player.mistakes,
+            mistakes: state.player.globalMistakes,
             actions: [],
         };
         console.log(sessionData);
 
         state.player = {
             isVisible: false,
-            mistakes: 0,
+            localMistakes: 0,
+            globalMistakes: 0,
         };
     } else {
+        // Включить следующий слайд
         const nextSlide = state.presentation.slides.byId[nextSlideId];
 
         state.activeSlideId = nextSlideId;
         state.activeLayerId = nextSlide.layerIds[0];
         state.activeNodeId = null;
+
+        state.player.localMistakes = 0;
     }
 };
 
 export const addMistakeReducer = (state: WritableDraft<EditorState>) => {
-    state.player.mistakes++;
+    state.player.localMistakes++;
+    state.player.globalMistakes++;
 };

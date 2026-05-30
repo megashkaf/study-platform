@@ -12,7 +12,8 @@ export interface EditorState {
     };
     player: {
         isVisible: boolean;
-        mistakes: number;
+        localMistakes: number;
+        globalMistakes: number;
     };
 }
 

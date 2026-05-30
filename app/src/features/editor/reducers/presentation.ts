@@ -23,7 +23,8 @@ export const addEditorData = (): EditorState => {
         },
         player: {
             isVisible: false,
-            mistakes: 0,
+            localMistakes: 0,
+            globalMistakes: 0,
         },
     };
 

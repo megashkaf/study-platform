@@ -98,7 +98,7 @@ const RectInputNodeRenderer = ({ node, handleShowMenu }: RectInputNodeRendererPr
                 rotation={node.transform.rotation}
                 width={node.transform.width}
                 height={node.transform.height}
-                fill={!playerState.isVisible || playerState.mistakes >= 3 ? "red" : "transparent"}
+                fill={!playerState.isVisible || playerState.localMistakes >= 3 ? "red" : "transparent"}
                 opacity={0.5}
                 onContextMenu={handleShowMenu}
                 draggable={activeNodeId === node.id && !node.transform.isLocked}

@@ -92,7 +92,7 @@ const TextNodeRenderer = ({ node, handleShowMenu }: TextNodeRendererProps) => {
         // Заготовка для редактирования текста с помощью двойного клика
     };
 
-    if (playerState.isVisible && layer?.type === "hints" && playerState.mistakes < 2) return;
+    if (playerState.isVisible && layer?.type === "hints" && playerState.localMistakes < 2) return;
 
     return (
         <>
