@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "main": "dist-electron/main/index.js",
     "description": "Interactive presentation editor & viewer.",
-    "author": "Evgenii Pachkalov",
+    "author": "MegaShkaf",
     "license": "MIT",
     "private": true,
     "debug": {
